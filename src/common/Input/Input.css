@@ -1,0 +1,12 @@
+input[type=text] {
+    border: 1px solid yellowgreen;
+    border-radius: 2px;
+    text-align: left;
+    font-size: 14px;
+    margin: auto;
+    padding: 8px 24px;
+    display: inline-block;
+  }
+label{
+  display: block;
+}
