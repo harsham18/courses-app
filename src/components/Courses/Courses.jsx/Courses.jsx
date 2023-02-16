@@ -7,6 +7,8 @@ import './Courses.css';
 
 function Courses(props) {
 	const [createCourse, setCreateCourse] = useState(false);
+	const listCourses = props.data.mockedCoursesList;
+	const listAuthors = props.data.mockedAuthorsList;
 	const handleCreateCourse = () => {
 		setCreateCourse(!createCourse);
 	};
@@ -25,7 +27,19 @@ function Courses(props) {
 			{createCourse ? (
 				<CreateCourse data={props.data} />
 			) : (
-				<CourseCard data={props.data} />
+				<>
+					{listCourses.map((course, i) => {
+						return (
+							<>
+								<CourseCard
+									key={i}
+									SingleCourse={course}
+									authorsList={listAuthors}
+								/>
+							</>
+						);
+					})}
+				</>
 			)}
 		</div>
 	);

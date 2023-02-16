@@ -17,6 +17,9 @@ function CreateCourse(props) {
 	const [description, setDescription] = useState('');
 	const [authorName, setAuthorName] = useState('');
 	const [display, setDisplay] = useState(true);
+	const [createAuthor, setCreatedAuthor] = useState([]);
+	const listCourses = props.data.mockedCoursesList;
+	const listAuthors = props.data.mockedAuthorsList;
 
 	const handleCreateCourse = () => {
 		const id = uuidv4(),
@@ -53,8 +56,9 @@ function CreateCourse(props) {
 	const handleCreateAuthor = () => {
 		const authorId = uuidv4();
 		const name = authorName;
-		mockedAuthorsList.push({ id: authorId, name });
+		listAuthors.push({ id: authorId, name });
 		setAuthorName('');
+		setCreatedAuthor({ id: authorId, name: authorName });
 	};
 	const handleAuthorItem = (authorData) => {
 		const udpatedAuthors = [...authors, authorData];
@@ -114,7 +118,8 @@ function CreateCourse(props) {
 						<div className='authors'>
 							<h4>Authors</h4>
 							<AuthorItem
-								authors={props.data.mockedAuthorsList}
+								createdAuthors={createAuthor}
+								authors={listAuthors}
 								selectedAuthors={authors}
 								updatedData={handleAuthorItem}
 							/>
@@ -127,6 +132,7 @@ function CreateCourse(props) {
 								labelText='Duration'
 								onChange={handleDuration}
 							/>
+							<br />
 							<span>Duration: {getCourseDuration(duration)} hours</span>
 						</div>
 						<div className='authorsList'>
@@ -155,7 +161,15 @@ function CreateCourse(props) {
 					</div>
 				</div>
 			) : (
-				<CourseCard data={props.data} />
+				<>
+					{listCourses.map((course) => {
+						return (
+							<>
+								<CourseCard SingleCourse={course} authorsList={listAuthors} />
+							</>
+						);
+					})}
+				</>
 			)}
 		</>
 	);

@@ -8,7 +8,7 @@ function AuthorItem(props) {
 			(author) => !props.selectedAuthors.includes(author)
 		);
 		setFilteredAuthors(latest);
-	}, [props.selectedAuthors, props.authors]);
+	}, [props.selectedAuthors, props.authors, props.createdAuthors]);
 
 	return (
 		<table>
